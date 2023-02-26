@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--  🚩数据库表字段的下划线自动转换成小驼峰，不配置的话，查询出来的VO类上的某些属性是null值，就是数据库表中的字段是下划线的就会出现-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--        自带的日志输出-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <environments default="development">
+<!--        <environment id="development">-->
+<!--            <transactionManager type="JDBC"/>-->
+<!--            <dataSource type="POOLED">-->
+<!--                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--                <property name="url" value="jdbc:mysql://localhost:3306/student?useSSL=false&amp;serverTimezone=Asia/Shanghai"/>-->
+<!--                <property name="username" value="root"/>-->
+<!--                <property name="password" value="root"/>-->
+<!--            </dataSource>-->
+<!--        </environment>-->
+        <!--        使用DruidDataSource，需要创建PooledDataSourceFactory 的子类 在构造函数中使用DruidDataSource-->
+                <environment id="development">
+                    <transactionManager type="JDBC"/>
+                    <dataSource type="daimiao.DruidDataSourceFactory">
+                        <property name="url" value="jdbc:mysql://localhost:3306/student?serverTimezone=Asia/Shanghai"/>
+                        <property name="username" value="root"/>
+                        <property name="password" value="root"/>
+                    </dataSource>
+                </environment>
+    </environments>
+
+    <mappers>
+        <!--        放在资源目录下面-->
+<!--        <mapper resource="mapper/TbStudentDao.xml"/>-->
+<!--        <mapper resource="mapper/TbGradeDao.xml"/>-->
+<!--指定扫描包路径：将这个包路径下的所有的以xml文件结尾的都自动生成Dao的实现类-->
+<!--        注意:这个包的路径必须跟你的Dao接口路径一致，否则会出现绑定异常-->
+        <package name="daimiao.dao"/>
+    </mappers>
+</configuration>

@@ -96,18 +96,77 @@
         where stu_id = #{stuId,jdbcType=INTEGER}
     </update>
 <!--    1.CONCAT函数表示连接字符串用于模糊查询的拼接-->
-<!--    -->
+<!--    2.#{属性名}-->
+<!--    if标签-->
+<!--    <select id="selectByQuery" resultType="daimiao.pojo.vo.StudentsVo">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List" />-->
+<!--        from tb_student-->
+<!--        where 1=1-->
+<!--        <if test="stuNum!=null and stuNum!=''">-->
+<!--            AND stu_num like CONCAT('%',#{stuNum},'%')-->
+<!--        </if>-->
+<!--        <if test="stuName!=null and stuName!=''">-->
+<!--            AND stu_name like CONCAT('%',#{stuName},'%')-->
+<!--        </if>-->
+<!--        limit #{start},#{limit}-->
+<!--    </select>-->
+<!--    where标签-->
     <select id="selectByQuery" resultType="daimiao.pojo.vo.StudentsVo">
         select
         <include refid="Base_Column_List" />
         from tb_student
-        where 1=1
-        <if test="stuNum!=null and stuNum!=''">
-            AND stu_num like CONCAT('%',#{stuNum},'%')
-        </if>
-        <if test="stuName!=null and stuName!=''">
-            AND stu_name like CONCAT('%',#{stuName},'%')
-        </if>
+        <where>
+            <if test="stuNum!=null and stuNum!=''">
+                AND stu_num like CONCAT('%',#{stuNum},'%')
+            </if>
+            <if test="stuName!=null and stuName!=''">
+                AND stu_name like CONCAT('%',#{stuName},'%')
+            </if>
+        </where>
         limit #{start},#{limit}
     </select>
+    <select id="selectByIds" resultType="daimiao.pojo.vo.StudentsVo">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_student
+        where stu_id in
+        <foreach collection="ids" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+    </select>
+    <select id="selectByObject" resultType="daimiao.pojo.vo.StudentsVo">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_student
+        where stu_id in
+        <foreach collection="collection" open="(" close=")" item="stu" separator=",">
+            #{stu.stuId}
+        </foreach>
+    </select>
+    <select id="selectById" resultType="daimiao.pojo.entity.TbStudent">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_student
+        where stu_id=#{i};
+    </select>
+    <select id="selectByQuery1" resultType="daimiao.pojo.vo.StudentsVo">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_student
+        where stu_name=#{stuName} and stu_age=#{stuAge}
+    </select>
+<!--    <select id="selectByMultiParms" resultType="daimiao.pojo.vo.StudentsVo">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from tb_student-->
+<!--        where stu_name=#{name} and stu_age=#{age}-->
+<!--    </select>-->
+        <select id="selectByMultiParams" resultType="daimiao.pojo.vo.StudentsVo">
+            select
+            <include refid="Base_Column_List"/>
+            from tb_student
+            where stu_name=#{param1} and stu_age=#{param2}
+        </select>
+
 </mapper>

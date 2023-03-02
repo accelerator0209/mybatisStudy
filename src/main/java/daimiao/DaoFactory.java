@@ -1,6 +1,5 @@
 package daimiao;
 
-import daimiao.dao.TbStudentDao;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -13,8 +12,8 @@ public class DaoFactory {
         InputStream resourceAsStream = MybatisDemo.class.getClassLoader().getResourceAsStream("mybatis/mybatis-config.xml");
         //创建SqlSession对象
         SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(resourceAsStream);
-        //根据工厂得到SqlSession对象
-        SqlSession sqlSession = factory.openSession();
+        //根据工厂得到SqlSession对象,并自动提交
+        SqlSession sqlSession = factory.openSession(true);
         //根据SqlSession 获得Dao
         T mapper = sqlSession.getMapper(tClass);
         return mapper;

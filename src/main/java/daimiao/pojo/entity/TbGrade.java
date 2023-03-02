@@ -17,5 +17,7 @@ public class TbGrade implements Serializable {
 
     private Double english;
 
+    private String stuNum;
+
     private static final long serialVersionUID = 1L;
 }

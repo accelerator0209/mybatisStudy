@@ -33,10 +33,10 @@
 
     <mappers>
         <!--        放在资源目录下面-->
-<!--        <mapper resource="mapper/TbStudentDao.xml"/>-->
-<!--        <mapper resource="mapper/TbGradeDao.xml"/>-->
-<!--指定扫描包路径：将这个包路径下的所有的以xml文件结尾的都自动生成Dao的实现类-->
-<!--        注意:这个包的路径必须跟你的Dao接口路径一致，否则会出现绑定异常-->
+        <!--        <mapper resource="mapper/TbStudentDao.xml"/>-->
+        <!--        <mapper resource="mapper/TbGradeDao.xml"/>-->
+        <!--指定扫描包路径：将这个包路径下的所有的以xml文件结尾的都自动生成Dao的实现类-->
+        <!--        注意:这个包的路径必须跟你的Dao接口路径一致，否则会出现绑定异常-->
         <package name="daimiao.dao"/>
     </mappers>
 </configuration>
